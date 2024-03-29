@@ -7,8 +7,11 @@ namespace Project.Data.Models
 {
     public class Owner
     {
-        [Key]
-        public int Id { get; set; }
+        [Required]
+        public string UserId { get; set; } = string.Empty;
+
+        [ForeignKey(nameof(UserId))]
+        public IdentityUser User { get; set; } = null!;
 
         [Required]
         public string FirstName { get; set; } = string.Empty;
@@ -19,11 +22,6 @@ namespace Project.Data.Models
         [Required]
         public string PhoneNumber { get; set; } = string.Empty;
 
-        [Required]
-        public string UserId { get; set; } = string.Empty;
-
-        [ForeignKey(nameof(UserId))]
-        public IdentityUser User { get; set; } = null!;
 
         public List<Restaurant> Restaurants { get; set; } = new List<Restaurant>();
     }

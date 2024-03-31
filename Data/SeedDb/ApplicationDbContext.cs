@@ -25,6 +25,15 @@ namespace Project.Data.SeedDb
                 .WithMany()
                 .HasForeignKey(e => e.UserId)
                 .OnDelete(DeleteBehavior.NoAction);
+            
+            modelBuilder.Entity<OwnerRequest>()
+                .HasKey(ep => new { ep.OwnerId});
+
+            modelBuilder.Entity<OwnerRequest>()
+                .HasOne(e => e.Owner)
+                .WithMany()
+                .HasForeignKey(e => e.OwnerId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder
                 .Entity<Category>()
@@ -48,6 +57,7 @@ namespace Project.Data.SeedDb
         public DbSet<Category> Categories { get; set; }
 
         public DbSet<Restaurant> Restaurants { get; set; }
+        public DbSet<OwnerRequest> OwnersRequests { get; set; }
 
     }
 }

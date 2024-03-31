@@ -36,7 +36,7 @@ namespace Project.Controllers
 
             string userId = GetUserId();
 
-            var entity = new Restaurant()
+            var restaurant = new Restaurant()
             {
                 Name = model.Name,
                 ImageUrl=model.ImageUrl,
@@ -46,7 +46,11 @@ namespace Project.Controllers
                 Address = model.Address,
             };
 
-            await data.Restaurants.AddAsync(entity);
+
+            Owner owner = await data.Owners.FirstAsync(x => x.UserId == GetUserId());
+            owner.Restaurants.Add(restaurant);
+
+            await data.Restaurants.AddAsync(restaurant);
             await data.SaveChangesAsync();
 
             return RedirectToAction();

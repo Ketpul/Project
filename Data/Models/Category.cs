@@ -11,6 +11,6 @@ namespace Project.Data.Models
         [Required]
         public string Name { get; set; } = string.Empty;
 
-        public List<Restaurant> Houses { get; set; } = new List<Restaurant>();
+        public List<Restaurant> Restaurants { get; set; } = new List<Restaurant>();
     }
 }

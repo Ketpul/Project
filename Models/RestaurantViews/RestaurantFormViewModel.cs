@@ -1,7 +1,8 @@
 ﻿using Project.Data.Models;
+using Project.Models.OtherViews;
 using System.ComponentModel.DataAnnotations;
 
-namespace Project.Models
+namespace Project.Models.RestaurantViews
 {
     public class RestaurantFormViewModel
     {
@@ -25,7 +26,7 @@ namespace Project.Models
         public string Owner { get; set; } = string.Empty;
 
         [Required]
-        public int CategoryId { get; set; } 
+        public int CategoryId { get; set; }
 
         public IEnumerable<CategoryViewModel> Categories { get; set; } = new List<CategoryViewModel>();
     }

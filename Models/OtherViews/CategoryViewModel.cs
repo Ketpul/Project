@@ -1,4 +1,4 @@
-﻿namespace Project.Models
+﻿namespace Project.Models.OtherViews
 {
     public class CategoryViewModel
     {

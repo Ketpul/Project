@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Project.Data.Models;
 using Project.Data.SeedDb;
-using Project.Models;
+using Project.Models.OwnerViews;
 using System.Security.Claims;
 
 namespace Project.Controllers

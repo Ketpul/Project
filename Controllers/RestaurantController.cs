@@ -2,7 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using Project.Data.Models;
 using Project.Data.SeedDb;
-using Project.Models;
+using Project.Models.OtherViews;
+using Project.Models.RestaurantViews;
 using System.Security.Claims;
 
 namespace Project.Controllers
@@ -14,7 +15,7 @@ namespace Project.Controllers
         {
             data = _data;
         }
-
+        [HttpGet]
         public async Task<IActionResult> Add()
         {
             var model = new RestaurantFormViewModel();
@@ -54,6 +55,26 @@ namespace Project.Controllers
             await data.SaveChangesAsync();
 
             return RedirectToAction();
+        }
+
+        public async Task<IActionResult> All()
+        {
+            
+
+            var restaurants = await data.Restaurants
+                .Select(r => new RestaurantInfoViewModel()
+                {
+                    Id = r.Id,
+                    Name = r.Name,
+                    ImageUrl = r.ImageUrl,
+                    Description = r.Description,
+                    Address = r.Address,
+                    Owner = r.OwnerId,
+                    Category = r.Category.Name
+                })
+                .ToListAsync();
+
+            return View(restaurants);
         }
 
 

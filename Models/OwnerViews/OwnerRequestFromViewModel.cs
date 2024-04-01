@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Project.Models
+namespace Project.Models.OwnerViews
 {
     public class OwnerRequestFromViewModel
     {
@@ -20,6 +20,6 @@ namespace Project.Models
         public string Information { get; set; } = string.Empty;
 
         [Required]
-        public DateTime DateTime { get; set; } 
+        public DateTime DateTime { get; set; }
     }
 }

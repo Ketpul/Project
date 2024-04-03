@@ -17,7 +17,9 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
     options.Password.RequireDigit = false;
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequireUppercase = false;
-}).AddEntityFrameworkStores<ApplicationDbContext>();
+})
+ .AddRoles<IdentityRole>()
+.AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
 
@@ -48,5 +50,7 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 
-app.Run();
+await app.CreateAdminRoleAsync();
+
+await app.RunAsync();
 

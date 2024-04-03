@@ -10,7 +10,7 @@ namespace Project.Data.Models
         public string OwnerId { get; set; } = string.Empty;
 
         [ForeignKey(nameof(OwnerId))]
-        public IdentityUser Owner { get; set; } = null!;
+        public ApplicationUser Owner { get; set; } = null!;
 
         [Required]
         public string FirstName { get; set; } = string.Empty;

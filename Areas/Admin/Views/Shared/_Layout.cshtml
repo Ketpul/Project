@@ -20,25 +20,10 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Restaurant" asp-action="Add">Add Restaurant</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Owner" asp-action="Add">Owner Request</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Restaurant" asp-action="All">All Restaurants</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Home" asp-action="All">All Restaurateur Request</a>
-                            </li>
-                            }
+                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                     </ul>
-                    <partial name="_LoginPartial" />
+                    <partial name="_AdminPartial" />
                 </div>
             </div>
         </nav>
@@ -51,7 +36,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - Project - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; @DateTime.Today.Year - HouseRentingSystem <span class="text-danger">This area is only for Administrator!</span>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

@@ -1,9 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Project.Data.Models;
-using System.ComponentModel.DataAnnotations;
 
 namespace Project.Data.SeedDb
 {
@@ -17,22 +14,13 @@ namespace Project.Data.SeedDb
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Owner>()
-                .HasKey(ep => new { ep.UserId});
+            modelBuilder.Entity<RestaurateurRequest>()
+                .HasKey(ep => new { ep.RestaurateurId });
 
-            modelBuilder.Entity<Owner>()
-                .HasOne(e => e.User)
+            modelBuilder.Entity<RestaurateurRequest>()
+                .HasOne(e => e.Restaurateur)
                 .WithMany()
-                .HasForeignKey(e => e.UserId)
-                .OnDelete(DeleteBehavior.NoAction);
-            
-            modelBuilder.Entity<OwnerRequest>()
-                .HasKey(ep => new { ep.OwnerId});
-
-            modelBuilder.Entity<OwnerRequest>()
-                .HasOne(e => e.Owner)
-                .WithMany()
-                .HasForeignKey(e => e.OwnerId)
+                .HasForeignKey(e => e.RestaurateurId)
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder
@@ -42,22 +30,26 @@ namespace Project.Data.SeedDb
                     Id = 1,
                     Name = "Fast Food"
                 },
-                
                 new Category()
                 {
                     Id = 2,
                     Name = "Elegans"
+                },
+                new Category
+                {
+                    Id = 3,
+                    Name = "Other"
                 });
 
 
             base.OnModelCreating(modelBuilder);
         }
-        public DbSet<Owner> Owners { get; set; }
 
         public DbSet<Category> Categories { get; set; }
 
         public DbSet<Restaurant> Restaurants { get; set; }
-        public DbSet<OwnerRequest> OwnersRequests { get; set; }
+
+        public DbSet<RestaurateurRequest> RestaurateursRequests { get; set; }
 
     }
 }

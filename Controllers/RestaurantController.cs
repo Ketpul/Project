@@ -43,13 +43,9 @@ namespace Project.Controllers
                 ImageUrl=model.ImageUrl,
                 Description = model.Description,
                 CategoryId = model.CategoryId,
-                OwnerId = userId,
+                RestaurateurId = userId,
                 Address = model.Address,
             };
-
-
-            Owner owner = await data.Owners.FirstAsync(x => x.UserId == GetUserId());
-            owner.Restaurants.Add(restaurant);
 
             await data.Restaurants.AddAsync(restaurant);
             await data.SaveChangesAsync();
@@ -69,7 +65,7 @@ namespace Project.Controllers
                     ImageUrl = r.ImageUrl,
                     Description = r.Description,
                     Address = r.Address,
-                    Owner = r.OwnerId,
+                    RestaurateurId = r.RestaurateurId,
                     Category = r.Category.Name
                 })
                 .ToListAsync();
@@ -92,7 +88,7 @@ namespace Project.Controllers
 
         private string GetUserId()
         {
-            return User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? string.Empty;
+            return User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? string.Empty; 
         }
 
         

@@ -23,7 +23,7 @@ namespace Project.Models.RestaurantViews
 
         public string Description { get; set; } = string.Empty;
 
-        public string Owner { get; set; } = string.Empty;
+        public string Restaurateur { get; set; } = string.Empty;
 
         [Required]
         public int CategoryId { get; set; }

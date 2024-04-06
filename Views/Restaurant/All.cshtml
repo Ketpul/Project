@@ -18,7 +18,7 @@
                 <p class="mb-0"><span class="fw-bold">Description: </span>@a.Description</p>
             </div>
 
-            @if (User.Identity.Name == a.Owner)
+            @if (User.Identity.Name == a.RestaurateurId)
             {
                 <a asp-controller="Restaurant" asp-action="Edit" asp-route-id="@a.Id" class="btn btn-outline-warning mb-2 w-100 p-3 fw-bold">Edit the Restaurant</a>
                 <form class="input-group-sm " asp-controller="Ad" asp-action="RemoveFromAll" asp-route-id="@a.Id">

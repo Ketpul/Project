@@ -2,30 +2,25 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Project.Data.Models
+namespace Project.Models.OwnerViews
 {
-    public class OwnerRequest
+    public class RestaurateurRequestFromViewModel
     {
-        [Required]
-        public string OwnerId { get; set; } = string.Empty;
-
-        [ForeignKey(nameof(OwnerId))]
-        public ApplicationUser Owner { get; set; } = null!;
+        public int Id { get; set; }
+        public string RestaurateurId { get; set; } = string.Empty;
 
         [Required]
         public string FirstName { get; set; } = string.Empty;
 
         [Required]
         public string LastName { get; set; } = string.Empty;
-
         [Required]
         public string PhoneNumber { get; set; } = string.Empty;
 
         [Required]
         public string Information { get; set; } = string.Empty;
 
+        [Required]
         public DateTime DateTime { get; set; }
-
-
     }
 }

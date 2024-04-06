@@ -5,7 +5,7 @@ namespace Project.Areas.Admin.Models
 {
     public class RestaurateurInfoViewModel
     {
-        public string OwnerId { get; set; } = string.Empty;
+        public string RestaurateurId { get; set; } = string.Empty;
 
         public string FirstName { get; set; } = string.Empty;
 

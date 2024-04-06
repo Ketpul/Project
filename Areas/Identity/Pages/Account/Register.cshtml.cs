@@ -96,6 +96,11 @@ namespace Project.Areas.Identity.Pages.Account
             [Display(Name = "Last Name")]
             [StringLength(UserLastNameMaxLength, MinimumLength = UserLastNameMinLength)]
             public string LastName { get; set; }
+
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "User Name")]
+            public string UserName { get; set; }
         }
 
 
@@ -112,7 +117,8 @@ namespace Project.Areas.Identity.Pages.Account
                 var user = CreateUser();
 
                 user.PhoneNumber = Input.PhoneNumber;
-                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+                user = new ApplicationUser { UserName = Input.UserName, Email = Input.Email };
+                await _userStore.SetUserNameAsync(user, Input.UserName, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
 

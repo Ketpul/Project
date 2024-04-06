@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Project.Data.Models;
-using System.Data;
 using static Project.Constants.RoleConstants;
 
 namespace Microsoft.AspNetCore.Builder
@@ -26,9 +25,22 @@ namespace Microsoft.AspNetCore.Builder
                 }
             }
 
-            if (userManager != null && roleManager != null && await roleManager.RoleExistsAsync(Restaurateur) == false)
+            if (userManager != null && roleManager != null && await roleManager.RoleExistsAsync(Project.Constants.RoleConstants.Restaurateur) == false)
             {
-                var role = new IdentityRole(Restaurateur);
+                var role = new IdentityRole(Project.Constants.RoleConstants.Restaurateur);
+                await roleManager.CreateAsync(role);
+
+                var restaurateur = await userManager.FindByEmailAsync("admin@gmail.com");
+
+                if (restaurateur != null)
+                {
+                    await userManager.AddToRoleAsync(restaurateur, role.Name);
+                }
+            }
+
+            if (userManager != null && roleManager != null && await roleManager.RoleExistsAsync(OwnerRole) == false)
+            {
+                var role = new IdentityRole(OwnerRole);
                 await roleManager.CreateAsync(role);
 
                 var restaurateur = await userManager.FindByEmailAsync("admin@gmail.com");

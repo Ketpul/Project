@@ -13,5 +13,7 @@ namespace Project.Data.Models
         [MaxLength(UserNameMaxLength)]
         [PersonalData]
         public string LastName { get; set; } = string.Empty;
+
+
     }
 }

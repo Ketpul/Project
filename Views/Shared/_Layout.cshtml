@@ -24,16 +24,24 @@
                             @if (User.Identity.IsAuthenticated)
                             {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Restaurant" asp-action="Add">Add Restaurant</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Owner" asp-action="Add">Owner Request</a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Restaurant" asp-action="All">All Restaurants</a>
                             </li>
+                            @if (base.User.IsInRole(Project.Constants.RoleConstants.Restaurateur))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Restaurant" asp-action="Add">Add Restaurant</a>
+                                </li>
+                                }
+                            
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Home" asp-action="All">All Restaurateur Request</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Restaurateur" asp-action="Add">Restaurateur Request</a>
+                            </li>
+                            <li class="nav-item">
+                                @if (User.IsInRole(AdminRole))
+                                {
+                                    <a class="nav-link text-dark" asp-area="Admin" asp-controller="Home" asp-action="DashBoard">DashBoard</a>
+                                }
+                                
                             </li>
                             }
                         </li>

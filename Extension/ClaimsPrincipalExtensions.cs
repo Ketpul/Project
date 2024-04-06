@@ -13,5 +13,9 @@ namespace Project.Extension
         {
             return user.IsInRole(Restaurateur);
         }
+        public static bool IsOwner(this ClaimsPrincipal user)
+        {
+            return user.IsInRole(OwnerRole);
+        }
     }
 }

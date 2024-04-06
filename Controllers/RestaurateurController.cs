@@ -7,23 +7,23 @@ using System.Security.Claims;
 
 namespace Project.Controllers
 {
-    public class OwnerController : Controller
+    public class RestaurateurController : Controller
     {
         private readonly ApplicationDbContext data;
-        public OwnerController(ApplicationDbContext _data)
+        public RestaurateurController(ApplicationDbContext _data)
         {
             data = _data;
         }
 
         public async Task<IActionResult> Add()
         {
-            var model = new OwnerRequestFromViewModel();
+            var model = new RestaurateurRequestFromViewModel();
 
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(OwnerRequestFromViewModel model)
+        public async Task<IActionResult> Add(RestaurateurRequestFromViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -33,9 +33,9 @@ namespace Project.Controllers
             var userId = GetUserId();
 
 
-            var owner = new OwnerRequest()
+            var restaurateur = new RestaurateurRequest()
             {
-                OwnerId = userId,
+                RestaurateurId = userId,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 PhoneNumber = model.PhoneNumber,
@@ -43,7 +43,7 @@ namespace Project.Controllers
                 DateTime =  DateTime.Now,
             };
 
-            await data.OwnersRequests.AddAsync(owner);
+            await data.RestaurateursRequests.AddAsync(restaurateur);
             await data.SaveChangesAsync();
 
             return RedirectToAction();

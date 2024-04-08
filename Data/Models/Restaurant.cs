@@ -25,7 +25,6 @@ namespace Project.Data.Models
         public string ImageUrl3 { get; set; } = string.Empty;
 
         [Required]
-        [MaxLength(110)]
 
         public string Description { get; set; } = string.Empty;
 
@@ -36,6 +35,9 @@ namespace Project.Data.Models
 
         [Required]
         public string RestaurateurId { get; set; } = string.Empty;
+
+        [Required]
+        public string GoogleMaps { get; set; } = string.Empty;
 
         [Required]
         public int CategoryId { get; set; }

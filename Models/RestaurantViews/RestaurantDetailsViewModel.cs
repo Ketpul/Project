@@ -28,5 +28,6 @@ namespace Project.Models.RestaurantViews
         public List<Comment> Comments { get; set; } = new List<Comment>();
 
         public string userCommentName { get; set; } = string.Empty;
+        public string GoogleMaps { get; set; } = string.Empty;
     }
 }

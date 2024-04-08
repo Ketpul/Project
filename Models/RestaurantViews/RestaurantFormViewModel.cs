@@ -26,6 +26,7 @@ namespace Project.Models.RestaurantViews
         [StringLength(100, MinimumLength = 10)]
 
         public string Description { get; set; } = string.Empty;
+        public string GoogleMaps { get; set; } = string.Empty;
 
         public string Restaurateur { get; set; } = string.Empty;
 

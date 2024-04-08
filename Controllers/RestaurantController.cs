@@ -50,6 +50,7 @@ namespace Project.Controllers
                 CategoryId = model.CategoryId,
                 RestaurateurId = userId,
                 Address = model.Address,
+                GoogleMaps = model.GoogleMaps,
             };
 
             await data.Restaurants.AddAsync(restaurant);
@@ -98,7 +99,8 @@ namespace Project.Controllers
                 FullName = $"{restaurantuer.FirstName} {restaurantuer.LastName}",
                 Email = restaurantuer.Email,
                 PhoneNumber = restaurantuer.PhoneNumber,
-                Comments = comments
+                Comments = comments,
+                GoogleMaps = restaurant.GoogleMaps,
             };
 
             return View(model);

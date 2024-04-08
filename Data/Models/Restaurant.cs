@@ -16,7 +16,13 @@ namespace Project.Data.Models
         public string Name { get; set; } = string.Empty;
 
         [Required]
-        public string ImageUrl { get; set; } = string.Empty;
+        public string ImageUrl1 { get; set; } = string.Empty;
+        
+        [Required]
+        public string ImageUrl2 { get; set; } = string.Empty;
+        
+        [Required]
+        public string ImageUrl3 { get; set; } = string.Empty;
 
         [Required]
         [MaxLength(110)]

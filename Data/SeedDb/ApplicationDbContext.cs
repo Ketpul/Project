@@ -47,6 +47,8 @@ namespace Project.Data.SeedDb
 
         public DbSet<Category> Categories { get; set; }
 
+        public DbSet<Comment> Comments { get; set; }
+
         public DbSet<Restaurant> Restaurants { get; set; }
 
         public DbSet<RestaurateurRequest> RestaurateursRequests { get; set; }

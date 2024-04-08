@@ -8,7 +8,9 @@ namespace Project.Models.RestaurantViews
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
 
-        public string ImageUrl { get; set; } = string.Empty;
+        public string ImageUrl1 { get; set; } = string.Empty;
+        public string ImageUrl2 { get; set; } = string.Empty;
+        public string ImageUrl3 { get; set; } = string.Empty;
 
         public string Address { get; set; } = string.Empty;
 

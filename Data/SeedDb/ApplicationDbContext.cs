@@ -14,6 +14,22 @@ namespace Project.Data.SeedDb
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<FavoriteRestaurants>()
+                .HasKey(ep => new { ep.RestaurantId, ep.UserId });
+
+            modelBuilder.Entity<FavoriteRestaurants>()
+                .HasOne(e => e.Restaurant)
+                .WithMany()
+                .HasForeignKey(e => e.RestaurantId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+
+            modelBuilder.Entity<FavoriteRestaurants>()
+                .HasOne(e => e.User)
+                .WithMany()
+                .HasForeignKey(e => e.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
+
             modelBuilder.Entity<RestaurateurRequest>()
                 .HasKey(ep => new { ep.RestaurateurId });
 
@@ -46,6 +62,7 @@ namespace Project.Data.SeedDb
         }
 
         public DbSet<Category> Categories { get; set; }
+        public DbSet<FavoriteRestaurants> FavoritesRestaurants { get; set; }
 
         public DbSet<Comment> Comments { get; set; }
 

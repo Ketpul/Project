@@ -84,7 +84,7 @@ namespace Project.Controllers
         {
             var restaurant = await data.Restaurants.FirstAsync(r => r.Id == id);
             var restaurantuer = await users.Users.FirstAsync(u => u.Id == restaurant.RestaurateurId);
-            var categery= await data.Categories.FirstAsync(c => c.Id == restaurant.CategoryId);
+            var categery = await data.Categories.FirstAsync(c => c.Id == restaurant.CategoryId);
             var comments = await data.Comments.Where(c => c.RestaurantId == restaurant.Id).ToListAsync();
 
             var model = new RestaurantDetailsViewModel()
@@ -104,6 +104,77 @@ namespace Project.Controllers
             };
 
             return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> FavoriteRestaurants(int id)
+        {
+            string userId = GetUserId();
+
+            var restaurants = await data.FavoritesRestaurants
+                .Where(f => f.UserId == userId)
+                .Select(r => new RestaurantInfoViewModel()
+                {
+                    Id = r.Restaurant.Id,
+                    Name = r.Restaurant.Name,
+                    ImageUrl1 = r.Restaurant.ImageUrl1,
+                    ImageUrl2 = r.Restaurant.ImageUrl2,
+                    ImageUrl3 = r.Restaurant.ImageUrl3,
+                    Description = r.Restaurant.Description,
+                    Address = r.Restaurant  .Address,
+                    RestaurateurId = r.Restaurant.RestaurateurId,
+                    Category = r.Restaurant.Category.Name
+                })
+                .ToListAsync();
+
+            return View(restaurants);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddFavoriteRestaurants(int id)
+        {
+            var restaurant = await data.Restaurants.FindAsync(id);
+
+            if (restaurant == null)
+            {
+                return BadRequest();
+            }
+
+            string userId = GetUserId();
+
+            var entity = new FavoriteRestaurants()
+            {
+                UserId = userId,
+                RestaurantId = restaurant.Id
+            };
+
+
+            if (await data.FavoritesRestaurants.ContainsAsync(entity))
+            {
+                return RedirectToAction(nameof(FavoriteRestaurants));
+            }
+
+            await data.FavoritesRestaurants.AddAsync(entity);
+            await data.SaveChangesAsync();
+
+            return RedirectToAction(nameof(FavoriteRestaurants));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RemoveFromFavorite(int id)
+        {
+            var userId = GetUserId();
+            var favorite = await data.FavoritesRestaurants.FirstAsync(f => f.RestaurantId == id && f.UserId == userId);
+
+            if (favorite == null)
+            {
+                return BadRequest();
+            }
+
+            data.FavoritesRestaurants.Remove(favorite);
+            data.SaveChanges();
+
+            return RedirectToAction(nameof(FavoriteRestaurants));
         }
 
 

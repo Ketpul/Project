@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Project.Data.SeedDb;
 
@@ -11,9 +12,10 @@ using Project.Data.SeedDb;
 namespace Project.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240410144320_AddFavoriteRestaurants")]
+    partial class AddFavoriteRestaurants
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -295,15 +297,20 @@ namespace Project.Migrations
 
             modelBuilder.Entity("Project.Data.Models.FavoriteRestaurants", b =>
                 {
+                    b.Property<int>("Key")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Key"), 1L, 1);
+
                     b.Property<int>("RestaurantId")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("RestaurantId", "UserId");
-
-                    b.HasIndex("UserId");
+                    b.HasKey("Key");
 
                     b.ToTable("FavoritesRestaurants");
                 });
@@ -441,25 +448,6 @@ namespace Project.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Project.Data.Models.FavoriteRestaurants", b =>
-                {
-                    b.HasOne("Project.Data.Models.Restaurant", "Restaurant")
-                        .WithMany()
-                        .HasForeignKey("RestaurantId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Project.Data.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Restaurant");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Project.Data.Models.Restaurant", b =>

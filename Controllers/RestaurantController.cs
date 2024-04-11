@@ -79,7 +79,7 @@ namespace Project.Controllers
             return View(restaurants);
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
             var restaurant = await data.Restaurants.FirstAsync(r => r.Id == id);

@@ -23,7 +23,7 @@ namespace Project.Models.RestaurantViews
         public string Address { get; set; } = string.Empty;
 
         [Required]
-        [StringLength(100, MinimumLength = 10)]
+        [StringLength(2000, MinimumLength = 10)]
 
         public string Description { get; set; } = string.Empty;
         public string GoogleMaps { get; set; } = string.Empty;

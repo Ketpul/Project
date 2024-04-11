@@ -27,9 +27,11 @@
             }
             else
             {
-                <form class="input-group-sm " asp-controller="Restaurant" asp-action="Details" asp-route-id="@a.Id">
+                <form method="get" asp-controller="Restaurant" asp-action="Details" asp-route-id="@a.Id">
                     <input type="submit" value="Details" class="btn btn-outline-success mb-3 w-100 p-3 fw-bold" />
                 </form>
+               
+
                 <form class="input-group-sm " asp-controller="Restaurant" asp-action="AddFavoriteRestaurants" asp-route-id="@a.Id">
                     <input type="submit" value="Add Favorite Restaurants" class="btn btn-outline-warning mb-3 w-100 p-3 fw-bold" />
                 </form>

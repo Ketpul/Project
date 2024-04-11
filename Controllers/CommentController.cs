@@ -30,7 +30,7 @@ namespace Project.Controllers
             await data.Comments.AddAsync(comment);
             await data.SaveChangesAsync();
 
-            return RedirectToAction();
+            return RedirectToAction("Details", "Restaurant", new { id = restaurantId });
         }
 
         private string GetUserId()

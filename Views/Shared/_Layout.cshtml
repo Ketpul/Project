@@ -8,9 +8,11 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Project.styles.css" asp-append-version="true" />
 </head>
+
+
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <header >
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 ">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Project</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -20,33 +22,36 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="btn" style="background-color: orangered; margin: 0.4em;" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                             @if (User.Identity.IsAuthenticated)
                             {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Restaurant" asp-action="All">All Restaurants</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Restaurant" asp-action="FavoriteRestaurants">Favorite Restaurants</a>
-                            </li>
-                            @if (base.User.IsInRole(Project.Constants.RoleConstants.Restaurateur))
-                            {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Restaurant" asp-action="Add">Add Restaurant</a>
+                                    <a class="btn" style="background-color: orangered; margin: 0.4em;" asp-area="" asp-controller="Restaurant" asp-action="All">All Restaurants</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="btn" style="background-color: orangered; margin: 0.4em;" asp-area="" asp-controller="Restaurant" asp-action="FavoriteRestaurants">Favorite Restaurants</a>
+                                </li>
+                                @if (!User.IsInRole(Restaurateur))
+                                {
+                                    <li class="nav-item">
+                                        <a class="btn" style="background-color: orangered; margin: 0.4em;" asp-area="" asp-controller="Restaurateur" asp-action="Add">Restaurateur Request</a>
+                                    </li>
+                                }
+                                
+                                @if (base.User.IsInRole(Project.Constants.RoleConstants.Restaurateur))
+                                {
+                                <li class="nav-item">
+                                    <a class="btn" style="background-color: orangered; margin: 0.4em;" asp-area="" asp-controller="Restaurant" asp-action="Add">Add Restaurant</a>
                                 </li>
                                 }
-                            
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Restaurateur" asp-action="Add">Restaurateur Request</a>
-                            </li>
+                            }
+
                             <li class="nav-item">
                                 @if (User.IsInRole(AdminRole))
                                 {
-                                    <a class="nav-link text-dark" asp-area="Admin" asp-controller="Home" asp-action="DashBoard">DashBoard</a>
+                                    <a class="btn" style="background-color: orangered; margin: 0.4em;" asp-area="Admin" asp-controller="Home" asp-action="DashBoard">DashBoard</a>
                                 }
-                                
                             </li>
-                            }
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />

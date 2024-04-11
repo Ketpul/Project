@@ -29,5 +29,7 @@ namespace Project.Models.RestaurantViews
 
         public string userCommentName { get; set; } = string.Empty;
         public string GoogleMaps { get; set; } = string.Empty;
-    }
+
+        public string UserName { get; set; } = string.Empty;
+     }
 }

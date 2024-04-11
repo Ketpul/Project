@@ -5,11 +5,12 @@ using Project.Data.Models;
 using Project.Data.SeedDb;
 using Project.Models.OtherViews;
 using Project.Models.RestaurantViews;
+using System.Net;
 using System.Security.Claims;
 
 namespace Project.Controllers
 {
-    public class RestaurantController : Controller
+    public class RestaurantController : BaseController
     {
         private readonly ApplicationDbContext data;
         private readonly UserManager<ApplicationUser> users;
@@ -101,9 +102,76 @@ namespace Project.Controllers
                 PhoneNumber = restaurantuer.PhoneNumber,
                 Comments = comments,
                 GoogleMaps = restaurant.GoogleMaps,
+                UserName = restaurantuer.UserName,
             };
 
             return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var restaurant = await data.Restaurants.FirstAsync(r => r.Id == id);
+
+            if (restaurant.RestaurateurId != GetUserId())
+            {
+                return Unauthorized();
+            }
+
+            var model = new RestaurantFormViewModel()
+            {
+                Name = restaurant.Name,
+                ImageUrl1 = restaurant.ImageUrl1,
+                ImageUrl2 = restaurant.ImageUrl2,
+                ImageUrl3 = restaurant.ImageUrl3,
+                Address = restaurant.Address,
+                Description = restaurant.Description,
+                GoogleMaps = restaurant.GoogleMaps,
+                Restaurateur = restaurant.RestaurateurId
+            };
+
+            model.Categories = await GetCategories();
+
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(RestaurantFormViewModel model, int id)
+        {
+            var restaurant = await data.Restaurants.FindAsync(id);
+
+            if (restaurant == null)
+            {
+                return BadRequest();
+            }
+
+            if (restaurant.RestaurateurId != GetUserId())
+            {
+                return Unauthorized();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                model.Categories = await GetCategories();
+
+                return View(model);
+            }
+
+            var category = await data.Categories.FindAsync(model.CategoryId);
+
+            restaurant.Name = model.Name;
+            restaurant.ImageUrl1 = model.ImageUrl1;
+            restaurant.ImageUrl2 = model.ImageUrl2;
+            restaurant.ImageUrl3 = model.ImageUrl3;
+            restaurant.Address = model.Address;
+            restaurant.Description = model.Description;
+            restaurant.GoogleMaps = model.GoogleMaps;
+            restaurant.Category = category;
+
+            await data.SaveChangesAsync();
+
+            return RedirectToAction(nameof(All));
         }
 
         [HttpGet]

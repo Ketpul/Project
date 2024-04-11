@@ -7,7 +7,7 @@ using System.Security.Claims;
 
 namespace Project.Controllers
 {
-    public class RestaurateurController : Controller
+    public class RestaurateurController : BaseController
     {
         private readonly ApplicationDbContext data;
         public RestaurateurController(ApplicationDbContext _data)

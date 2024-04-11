@@ -6,7 +6,7 @@ using System.Security.Claims;
 
 namespace Project.Controllers
 {
-    public class CommentController : Controller
+    public class CommentController : BaseController
     {
         private readonly ApplicationDbContext data;
 

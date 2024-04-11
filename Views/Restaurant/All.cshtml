@@ -13,7 +13,9 @@
         <div class="card col-4" style="width: 20rem; ">
             <div class="card-body">
                 <h5 class="card-title mt-1">@a.Name</h5>
-                <img class="card-img-top" src=@a.ImageUrl1 alt="Ad Image">
+                <a href="@Url.Action("Details", "Restaurant", new { id = a.Id })">
+                    <img class="card-img-top" src="@a.ImageUrl1" alt="Ad Image">
+                </a>
                 <p class="mb-0"><span class="fw-bold">Category: </span>@a.Category</p>
                 <p class="mb-0"><span class="fw-bold">Description: </span>@a.Description</p>
             </div>
@@ -27,10 +29,6 @@
             }
             else
             {
-                <form method="get" asp-controller="Restaurant" asp-action="Details" asp-route-id="@a.Id">
-                    <input type="submit" value="Details" class="btn btn-outline-success mb-3 w-100 p-3 fw-bold" />
-                </form>
-               
 
                 <form class="input-group-sm " asp-controller="Restaurant" asp-action="AddFavoriteRestaurants" asp-route-id="@a.Id">
                     <input type="submit" value="Add Favorite Restaurants" class="btn btn-outline-warning mb-3 w-100 p-3 fw-bold" />

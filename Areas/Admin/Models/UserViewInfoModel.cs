@@ -11,6 +11,7 @@
         public string LastName  { get; set; } = string.Empty;
 
         public bool IsAdmin { get; set; }
+        public bool IsRestauranteur { get; set; }
 
         public bool IsRestaurateur { get; set; }
 

@@ -15,5 +15,8 @@ namespace Project.Data.Models
 
         [Required]
         public int RestaurantId { get; set; }
+
+        [Required]
+        public double Rating { get; set; }
     }
 }

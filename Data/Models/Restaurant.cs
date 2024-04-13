@@ -39,6 +39,8 @@ namespace Project.Data.Models
         [Required]
         public string GoogleMaps { get; set; } = string.Empty;
 
+        public double AvgRating { get; set; } 
+
         [Required]
         public int CategoryId { get; set; }
 

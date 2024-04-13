@@ -2,7 +2,7 @@
 
 
 @{
-    ViewBag.Title = "Restaurant Details";
+    ViewBag.Title = Model.Name;
     var images = Model.ImageUrl;
 }
 
@@ -40,7 +40,15 @@
                         @foreach (var comment in Model.Comments)
                         {
                             <div class="card" style="width: 25rem; margin-bottom: 20px;">
-                                <p><strong>UserName:</strong> @comment.UserName</p>
+                                <p>
+                                    <strong>User:</strong> @comment.UserName Rating:
+                                    <span style="color: gold;">
+                                        @for (int i = 0; i < comment.Rating; i++)
+                                        {
+                                            <label>★</label>
+                                        }
+                                    </span>
+                                </p>
                                 <p>@comment.info</p>
                             </div>
                             
@@ -48,6 +56,8 @@
                         }
                         <textarea name="commentText" class="form-control" aria-required="true" rows="4" style="width: 25rem;"></textarea>
                         <input type="hidden" name="restaurantId" value="@Model.Id" />
+                        <label for="rating">Rating:</label>
+                        <input type="number" name="rating" id="rating" min="1" max="5" class="form-control" style="width: 5rem;" required>
                         <button type="submit" class="btn-primary p-2 fw-bold" style="width: 25rem;">Add Comment</button>
                         
                     </form>
@@ -58,22 +68,43 @@
             <p><strong>Located in:</strong>@Model.Address</p>
             <p>@Model.Description</p>
             <p style ="margin-bottom: 40px;"><strong>Category:</strong> @Model.Category</p>
-            <iframe src=@Model.GoogleMaps style="width: 35rem; height: 30rem;" loading="lazy"></iframe>
+            @if (!string.IsNullOrEmpty(Model.GoogleMaps) && Uri.IsWellFormedUriString(Model.GoogleMaps, UriKind.Absolute))
+            {
+                <iframe src="@Model.GoogleMaps" style="width: 35rem; height: 30rem;" loading="lazy"></iframe>
+            }
+            else
+            {
+                <p>Грешка: Невалиден линк към Google Maps</p>
+            }
+            <p>
+
+            </p>
+            
             <div class="card" style="width: 18rem; position: absolute; top: 0; right: -25%;">
                 <div class="card-body">
                         <h5 class="card-title"><b>Agent Info:</b></h5>
                     <p class="card-text">Full Name:  @Model.FullName</p>
                     <p class="card-text">Email: @Model.Email </p>
                     <p class="card-text">Phone Number: @Model.PhoneNumber</p>
+                    <p>
+                        @if (User.Identity.Name == Model.UserName)
+                        {
+                            <div style="position: relative;">
+                                <a asp-controller="Restaurant" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-info mb-2 w-48 p-3 fw-bold" style="position: absolute; left: -1rem; top: 1rem;">Edit the Restaurant</a>
+
+                                <a asp-controller="Restaurant" asp-action="DeleteRestaurant" asp-route-id="@Model.Id" class="btn btn-danger mb-2 w-30 p-3 fw-bold" style="position: absolute; left: 10.2rem; top: 1rem;">Delete</a>
+                            </div>
+                        }
+                    </p>
+                    
                 </div>
             </div>
-            @if (User.Identity.Name == Model.UserName)
-            {
-                <div style="position: relative;">
-                    <a asp-controller="Restaurant" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-info mb-2 w-48 p-3 fw-bold" style="position: absolute; top: -450px; right: -14%;">Edit the Restaurant</a>
-                </div>
-            }
+            
+
         </div>
     </div>
 </div>
+
+
+
 

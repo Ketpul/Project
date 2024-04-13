@@ -32,8 +32,9 @@ namespace Project.Areas.Admin.Controllers
             foreach (var user in users)
             {
                 var isAdmin = await userManager.IsInRoleAsync(user, AdminRole);
-                var isRestaurateur = await userManager.IsInRoleAsync(user, Constants.RoleConstants.Restaurateur);
+                var isRestaurateur = await userManager.IsInRoleAsync(user, Restaurateur);
                 var isOwner = await userManager.IsInRoleAsync(user, OwnerRole);
+                var isRestauranteur = await userManager.IsInRoleAsync(user, Restaurateur);
 
                 userViewInfoModels.Add(new UserViewInfoModel
                 {
@@ -44,6 +45,7 @@ namespace Project.Areas.Admin.Controllers
                     IsAdmin = isAdmin,
                     IsRestaurateur = isRestaurateur,
                     IsOwner = isOwner,
+                    IsRestauranteur =isRestauranteur,
                 });
             }
 
@@ -65,6 +67,16 @@ namespace Project.Areas.Admin.Controllers
         {
             var user = await userManager.FindByEmailAsync(username);
             await userManager.RemoveFromRoleAsync(user, AdminRole);
+
+            data.SaveChanges();
+            return RedirectToAction(nameof(AllUser));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> RemoveFromRestaurenteur(string username)
+        {
+            var user = await userManager.FindByEmailAsync(username);
+            await userManager.RemoveFromRoleAsync(user, Restaurateur);
 
             data.SaveChanges();
             return RedirectToAction(nameof(AllUser));

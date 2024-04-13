@@ -175,6 +175,27 @@ namespace Project.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> DeleteRestaurant(int id)
+        {
+            var restaurant = await data.Restaurants.FindAsync(id);
+
+            if (restaurant == null)
+            {
+                return BadRequest();
+            }
+
+            if (restaurant.RestaurateurId != GetUserId())
+            {
+                return Unauthorized();
+            }
+
+            data.Remove(restaurant);
+            await data.SaveChangesAsync();
+
+            return RedirectToAction(nameof(All));
+        }
+
+        [HttpGet]
         public async Task<IActionResult> FavoriteRestaurants(int id)
         {
             string userId = GetUserId();

@@ -1,4 +1,5 @@
-﻿using Project.Data.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using Project.Data.Models;
 
 namespace Project.Models.RestaurantViews
 {
@@ -31,5 +32,6 @@ namespace Project.Models.RestaurantViews
         public string GoogleMaps { get; set; } = string.Empty;
 
         public string UserName { get; set; } = string.Empty;
-     }
+
+    }
 }

@@ -1,8 +1,31 @@
-﻿@{
+﻿@model HomeIndexViewModel
+@{
     ViewData["Title"] = "Home Page";
+    var restaurants = Model.Restaurants;
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+       
+        @foreach (var restaurant in restaurants)
+        {
+            <div class="carousel-item @(restaurants.IndexOf(restaurant) == 0 ? "active" : string.Empty)">
+                <h2 style="width: 80rem; margin: 4px; text-align: center;">@restaurant.Name</h2>
+
+                <a href="@Url.Action("Details", "Restaurant", new { id = restaurant.Id })">
+                <img class="card-img" style="width: 50rem; margin: 0 auto; display: block;"
+                     src="@restaurant.ImageUrl1">
+            </div>
+        }
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span  class="visually-hidden">Next</span>
+    </button>
 </div>
+

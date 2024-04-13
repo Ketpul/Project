@@ -11,6 +11,7 @@
     <thead>
         <tr>
             <th><label>Remove From Admin</label></th>
+            <th><label>Remove From Restaurenteur</label></th>
             <th><label>Email</label></th>
             <th><label>UserName</label></th>
             <th><label>User Is Admin</label></th>
@@ -27,6 +28,14 @@
                     {
                         <a asp-area="Admin" asp-controller="User" asp-action="RemoveFromAdmin" asp-route-username="@user.Email"
                            class="btn btn-danger btn-sm">Remove From Admin</a>
+                    }
+
+                </td>
+                <td>
+                    @if (user.IsRestauranteur && !user.IsOwner)
+                    {
+                        <a asp-area="Admin" asp-controller="User" asp-action="RemoveFromRestaurenteur" asp-route-username="@user.Email"
+                           class="btn btn-danger btn-sm">Remove From Restaurenteur</a>
                     }
 
                 </td>

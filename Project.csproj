@@ -22,11 +22,6 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Service\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="Service\Project.UnitTest\Project.UnitTest.csproj" />
   </ItemGroup>
 
 </Project>

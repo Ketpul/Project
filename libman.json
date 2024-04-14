@@ -3,8 +3,9 @@
   "defaultProvider": "cdnjs",
   "libraries": [
     {
-      "library": "bootstrap-timepicker@0.5.2",
-      "destination": "wwwroot/bootstrap-timepicker/"
+      "library": "toastr.js@2.1.4",
+      "destination": "wwwroot/lib/toastr"
+
     }
   ]
 }

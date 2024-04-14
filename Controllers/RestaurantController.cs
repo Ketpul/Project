@@ -6,11 +6,9 @@ using Project.Data.SeedDb;
 using Project.Enums;
 using Project.Models.OtherViews;
 using Project.Models.RestaurantViews;
-using System.ComponentModel.DataAnnotations;
-using System.Net;
-using System.Reflection;
 using System.Security.Claims;
 using static Project.Constants.RoleConstants;
+using static Project.Constants.MessageConstants;
 
 namespace Project.Controllers
 {
@@ -61,6 +59,8 @@ namespace Project.Controllers
 
             await data.Restaurants.AddAsync(restaurant);
             await data.SaveChangesAsync();
+
+            TempData[UserMessageSuccess] = "You added restaurants successfuly!";
 
             return RedirectToAction();
         }
@@ -233,6 +233,8 @@ namespace Project.Controllers
 
             data.Remove(restaurant);
             await data.SaveChangesAsync();
+
+            TempData[UserMessageError] = "You delete restaurants successfuly!";
 
             return RedirectToAction(nameof(All));
         }

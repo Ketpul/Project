@@ -21,7 +21,7 @@ namespace Project.Data.Models
         
         [Required]
         public string ImageUrl2 { get; set; } = string.Empty;
-        
+
         [Required]
         public string ImageUrl3 { get; set; } = string.Empty;
 

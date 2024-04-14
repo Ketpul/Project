@@ -3,12 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Project.Data.Models;
 using Project.Data.SeedDb;
-using Project.Enums;
 using Project.Models.OtherViews;
 using Project.Models.RestaurantViews;
 using System.Security.Claims;
-using static Project.Constants.RoleConstants;
 using static Project.Constants.MessageConstants;
+using static Project.Constants.RoleConstants;
 
 namespace Project.Controllers
 {
@@ -65,7 +64,7 @@ namespace Project.Controllers
             return RedirectToAction();
         }
         [HttpGet]
-        public async Task<IActionResult> All(string searchString, string category, RegionalCity? city, int rating)
+        public async Task<IActionResult> All(string searchString, string category, string city, int rating)
         {
             var restaurantsQuery = data.Restaurants.Select(r => new RestaurantInfoViewModel()
             {
@@ -96,16 +95,18 @@ namespace Project.Controllers
             {
                 restaurantsQuery = restaurantsQuery.Where(r => r.Rating == rating);
             }
+            
+            var restaurant = await restaurantsQuery.ToListAsync();
 
-            if(city.HasValue)
+            if(!string.IsNullOrEmpty(city))
             {
-                restaurantsQuery = restaurantsQuery.Where(r => r.City == city.Value.ToString());
+                restaurant = restaurant.Where(r => r.City.ToString() == city).ToList();
             }
 
 
-            var restaurants = await restaurantsQuery.ToListAsync();
+            
 
-            return View(restaurants);
+            return View(restaurant);
         }
 
         [HttpGet]

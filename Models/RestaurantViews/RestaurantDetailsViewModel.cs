@@ -33,5 +33,7 @@ namespace Project.Models.RestaurantViews
 
         public string UserName { get; set; } = string.Empty;
 
+        public string City { get; set; } = string.Empty;
+
     }
 }

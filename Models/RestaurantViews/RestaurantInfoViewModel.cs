@@ -20,5 +20,8 @@ namespace Project.Models.RestaurantViews
 
         public string Category { get; set; } = string.Empty;
 
+        public string City { get; set; } = string.Empty;
+
+        public double Rating { get; set; }  
     }
 }

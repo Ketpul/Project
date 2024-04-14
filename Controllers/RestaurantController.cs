@@ -3,10 +3,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Project.Data.Models;
 using Project.Data.SeedDb;
+using Project.Enums;
 using Project.Models.OtherViews;
 using Project.Models.RestaurantViews;
+using System.ComponentModel.DataAnnotations;
 using System.Net;
+using System.Reflection;
 using System.Security.Claims;
+using static Project.Constants.RoleConstants;
 
 namespace Project.Controllers
 {
@@ -52,6 +56,7 @@ namespace Project.Controllers
                 RestaurateurId = userId,
                 Address = model.Address,
                 GoogleMaps = model.GoogleMaps,
+                RegionalCity = model.RegionalCity,
             };
 
             await data.Restaurants.AddAsync(restaurant);
@@ -60,22 +65,45 @@ namespace Project.Controllers
             return RedirectToAction();
         }
         [HttpGet]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All(string searchString, string category, RegionalCity? city, int rating)
         {
-            var restaurants = await data.Restaurants
-                .Select(r => new RestaurantInfoViewModel()
-                {
-                    Id = r.Id,
-                    Name = r.Name,
-                    ImageUrl1 = r.ImageUrl1,
-                    ImageUrl2 = r.ImageUrl2,
-                    ImageUrl3 = r.ImageUrl3,
-                    Description = r.Description,
-                    Address = r.Address,
-                    RestaurateurId = r.RestaurateurId,
-                    Category = r.Category.Name
-                })
-                .ToListAsync();
+            var restaurantsQuery = data.Restaurants.Select(r => new RestaurantInfoViewModel()
+            {
+                Id = r.Id,
+                Name = r.Name,
+                ImageUrl1 = r.ImageUrl1,
+                ImageUrl2 = r.ImageUrl2,
+                ImageUrl3 = r.ImageUrl3,
+                Description = r.Description,
+                Address = r.Address,
+                RestaurateurId = r.RestaurateurId,
+                Category = r.Category.Name,
+                City = r.RegionalCity.ToString(),
+                Rating = r.AvgRating,
+            });
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                restaurantsQuery = restaurantsQuery.Where(r => r.Name.Contains(searchString));
+            }
+
+            if (!string.IsNullOrEmpty(category))
+            {
+                restaurantsQuery = restaurantsQuery.Where(r => r.Category == category);
+            }
+            
+            if (rating != 0)
+            {
+                restaurantsQuery = restaurantsQuery.Where(r => r.Rating == rating);
+            }
+
+            if(city.HasValue)
+            {
+                restaurantsQuery = restaurantsQuery.Where(r => r.City == city.Value.ToString());
+            }
+
+
+            var restaurants = await restaurantsQuery.ToListAsync();
 
             return View(restaurants);
         }
@@ -103,6 +131,7 @@ namespace Project.Controllers
                 Comments = comments,
                 GoogleMaps = restaurant.GoogleMaps,
                 UserName = restaurantuer.UserName,
+                City = restaurant.RegionalCity.ToString(),
             };
 
             return View(model);
@@ -113,9 +142,12 @@ namespace Project.Controllers
         {
             var restaurant = await data.Restaurants.FirstAsync(r => r.Id == id);
 
-            if (restaurant.RestaurateurId != GetUserId())
+            if (!User.IsInRole(AdminRole))
             {
-                return Unauthorized();
+                if (restaurant.RestaurateurId != GetUserId())
+                {
+                    return Unauthorized();
+                }
             }
 
             var model = new RestaurantFormViewModel()
@@ -127,7 +159,9 @@ namespace Project.Controllers
                 Address = restaurant.Address,
                 Description = restaurant.Description,
                 GoogleMaps = restaurant.GoogleMaps,
-                Restaurateur = restaurant.RestaurateurId
+                Restaurateur = restaurant.RestaurateurId,
+                RegionalCity = restaurant.RegionalCity,
+
             };
 
             model.Categories = await GetCategories();
@@ -146,9 +180,12 @@ namespace Project.Controllers
                 return BadRequest();
             }
 
-            if (restaurant.RestaurateurId != GetUserId())
+            if (!User.IsInRole(AdminRole))
             {
-                return Unauthorized();
+                if (restaurant.RestaurateurId != GetUserId())
+                {
+                    return Unauthorized();
+                }
             }
 
             if (!ModelState.IsValid)
@@ -168,6 +205,7 @@ namespace Project.Controllers
             restaurant.Description = model.Description;
             restaurant.GoogleMaps = model.GoogleMaps;
             restaurant.Category = category;
+            restaurant.RegionalCity = model.RegionalCity; 
 
             await data.SaveChangesAsync();
 
@@ -184,10 +222,14 @@ namespace Project.Controllers
                 return BadRequest();
             }
 
-            if (restaurant.RestaurateurId != GetUserId())
+            if (!User.IsInRole(AdminRole))
             {
-                return Unauthorized();
+                if (restaurant.RestaurateurId != GetUserId())
+                {
+                    return Unauthorized();
+                }
             }
+            
 
             data.Remove(restaurant);
             await data.SaveChangesAsync();

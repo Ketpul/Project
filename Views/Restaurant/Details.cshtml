@@ -67,7 +67,8 @@
         <div class="card col-8 border-0">
             <p><strong>Located in:</strong>@Model.Address</p>
             <p>@Model.Description</p>
-            <p style ="margin-bottom: 40px;"><strong>Category:</strong> @Model.Category</p>
+            <p style ="margin-bottom: 10px;"><strong>Category:</strong> @Model.Category</p>
+            <p style="margin-bottom: 40px;"><strong>City:</strong> @Model.City</p>
             @if (!string.IsNullOrEmpty(Model.GoogleMaps) && Uri.IsWellFormedUriString(Model.GoogleMaps, UriKind.Absolute))
             {
                 <iframe src="@Model.GoogleMaps" style="width: 35rem; height: 30rem;" loading="lazy"></iframe>
@@ -87,7 +88,7 @@
                     <p class="card-text">Email: @Model.Email </p>
                     <p class="card-text">Phone Number: @Model.PhoneNumber</p>
                     <p>
-                        @if (User.Identity.Name == Model.UserName)
+                        @if (User.Identity.Name == Model.UserName || User.IsInRole(AdminRole))
                         {
                             <div style="position: relative;">
                                 <a asp-controller="Restaurant" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-info mb-2 w-48 p-3 fw-bold" style="position: absolute; left: -1rem; top: 1rem;">Edit the Restaurant</a>

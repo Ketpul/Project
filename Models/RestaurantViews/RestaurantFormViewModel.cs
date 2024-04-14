@@ -1,4 +1,5 @@
 ﻿using Project.Data.Models;
+using Project.Enums;
 using Project.Models.OtherViews;
 using System.ComponentModel.DataAnnotations;
 
@@ -29,6 +30,11 @@ namespace Project.Models.RestaurantViews
         public string GoogleMaps { get; set; } = string.Empty;
 
         public string Restaurateur { get; set; } = string.Empty;
+
+        [Required]
+        public RegionalCity RegionalCity { get; set; } 
+
+        public string RegionalCityEnum { get; set; } = string.Empty;
 
         [Required]
         public int CategoryId { get; set; }

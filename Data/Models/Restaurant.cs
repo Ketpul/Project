@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Project.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -39,7 +40,10 @@ namespace Project.Data.Models
         [Required]
         public string GoogleMaps { get; set; } = string.Empty;
 
-        public double AvgRating { get; set; } 
+        public double AvgRating { get; set; }
+
+        [Required]
+        public RegionalCity RegionalCity { get; set; } 
 
         [Required]
         public int CategoryId { get; set; }

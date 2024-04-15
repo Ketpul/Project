@@ -91,9 +91,9 @@
                         @if (User.Identity.Name == Model.UserName || User.IsInRole(AdminRole))
                         {
                             <div style="position: relative;">
-                                <a asp-controller="Restaurant" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-info mb-2 w-48 p-3 fw-bold" style="position: absolute; left: -1rem; top: 1rem;">Edit the Restaurant</a>
+                                <a asp-controller="Restaurant" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-info mb-2 w-48 p-3 fw-bold" style="position: absolute; left: -1rem; top: -14.2rem;">Edit the Restaurant</a>
 
-                                <a asp-controller="Restaurant" asp-action="DeleteRestaurant" asp-route-id="@Model.Id" class="btn btn-danger mb-2 w-30 p-3 fw-bold" style="position: absolute; left: 10.2rem; top: 1rem;">Delete</a>
+                                <a asp-controller="Restaurant" asp-action="DeleteRestaurant" asp-route-id="@Model.Id" class="btn btn-danger mb-2 w-30 p-3 fw-bold" style="position: absolute; left: 10.2rem; top: -14.2rem;;">Delete</a>
                             </div>
                         }
                     </p>

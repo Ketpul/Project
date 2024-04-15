@@ -12,8 +12,8 @@ using Project.Data.SeedDb;
 namespace Project.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240406171212_Initial2")]
-    partial class Initial2
+    [Migration("20240415212527_addAll")]
+    partial class addAll
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -173,6 +173,9 @@ namespace Project.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("EMPRSID")
+                        .HasColumnType("int");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -257,18 +260,111 @@ namespace Project.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Fast Food"
+                            Name = "Бързо хранене"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Elegans"
+                            Name = "Изискан"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "Other"
+                            Name = "Рибен"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Кафе"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Бар"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Други"
                         });
+                });
+
+            modelBuilder.Entity("Project.Data.Models.Comment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<double>("Rating")
+                        .HasColumnType("float");
+
+                    b.Property<int>("RestaurantId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("info")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("Project.Data.Models.FavoriteRestaurants", b =>
+                {
+                    b.Property<int>("RestaurantId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("RestaurantId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("FavoritesRestaurants");
+                });
+
+            modelBuilder.Entity("Project.Data.Models.Reservation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Date")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("End")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RestaurantId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Start")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RestaurantId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Reservations");
                 });
 
             modelBuilder.Entity("Project.Data.Models.Restaurant", b =>
@@ -284,15 +380,29 @@ namespace Project.Migrations
                         .HasMaxLength(55)
                         .HasColumnType("nvarchar(55)");
 
+                    b.Property<double>("AvgRating")
+                        .HasColumnType("float");
+
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(110)
-                        .HasColumnType("nvarchar(110)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImageUrl")
+                    b.Property<string>("GoogleMaps")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl1")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl2")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl3")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -300,6 +410,9 @@ namespace Project.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("RegionalCity")
+                        .HasColumnType("int");
 
                     b.Property<string>("RestaurateurId")
                         .IsRequired()
@@ -393,6 +506,44 @@ namespace Project.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Project.Data.Models.FavoriteRestaurants", b =>
+                {
+                    b.HasOne("Project.Data.Models.Restaurant", "Restaurant")
+                        .WithMany()
+                        .HasForeignKey("RestaurantId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Project.Data.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Restaurant");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Project.Data.Models.Reservation", b =>
+                {
+                    b.HasOne("Project.Data.Models.Restaurant", "Restaurant")
+                        .WithMany()
+                        .HasForeignKey("RestaurantId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Project.Data.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Restaurant");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Project.Data.Models.Restaurant", b =>

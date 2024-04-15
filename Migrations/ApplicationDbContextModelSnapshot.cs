@@ -171,6 +171,9 @@ namespace Project.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("EMPRSID")
+                        .HasColumnType("int");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -255,17 +258,32 @@ namespace Project.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Fast Food"
+                            Name = "Бързо хранене"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Elegans"
+                            Name = "Изискан"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "Other"
+                            Name = "Рибен"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Кафе"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Бар"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Други"
                         });
                 });
 
@@ -309,6 +327,42 @@ namespace Project.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("FavoritesRestaurants");
+                });
+
+            modelBuilder.Entity("Project.Data.Models.Reservation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Date")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("End")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RestaurantId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Start")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RestaurantId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Reservations");
                 });
 
             modelBuilder.Entity("Project.Data.Models.Restaurant", b =>
@@ -453,6 +507,25 @@ namespace Project.Migrations
                 });
 
             modelBuilder.Entity("Project.Data.Models.FavoriteRestaurants", b =>
+                {
+                    b.HasOne("Project.Data.Models.Restaurant", "Restaurant")
+                        .WithMany()
+                        .HasForeignKey("RestaurantId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Project.Data.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Restaurant");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Project.Data.Models.Reservation", b =>
                 {
                     b.HasOne("Project.Data.Models.Restaurant", "Restaurant")
                         .WithMany()

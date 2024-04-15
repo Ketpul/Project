@@ -311,6 +311,9 @@ namespace Project.Controllers
             return RedirectToAction(nameof(FavoriteRestaurants));
         }
 
+        
+
+
 
         private async Task<IEnumerable<CategoryViewModel>> GetCategories()
         {

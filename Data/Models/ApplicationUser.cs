@@ -14,6 +14,8 @@ namespace Project.Data.Models
         [PersonalData]
         public string LastName { get; set; } = string.Empty;
 
+        public int EMPRSID { get; set; } 
+
 
     }
 }

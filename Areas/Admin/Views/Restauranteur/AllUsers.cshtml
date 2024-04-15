@@ -1,0 +1,71 @@
+﻿@model IEnumerable<EmployeeInfoViewModel>
+
+@{
+    ViewBag.Title = "All Users";
+    
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th><label>Remove From Employee</label></th>
+            <th><label>Email</label></th>
+            <th><label>UserName</label></th>
+            <th><label>User Is Employee</label></th>
+            <th><label>Restaurant Name</label></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>
+                    @if (user.IsEmployee )
+                    {
+                        <a asp-area="Admin" asp-controller="Restauranteur" asp-action="RemoveFromEmployee" asp-route-username="@user.Email"
+                           class="btn btn-danger btn-sm">Remove From Employee</a>
+                    }
+
+                </td>
+                
+                <td><label>@user.Email</label></td>
+                <td><label>@user.FirstName @user.LastName</label></td>
+                <td>
+                    @if (user.IsEmployee)
+                    {
+                        <label>✔</label>
+                    }
+                    else
+                    {
+                        <label class="text-center">❌</label>
+                    }
+
+                </td>
+                
+                <td>
+                    @if (!user.IsRestauntior && !user.IsEmployee)
+                    {
+                        <form asp-area="Admin" asp-controller="Restauranteur" asp-action="AddEmployee" method="post">
+                            <input type="hidden" name="username" value="@user.UserName" />
+                            <select id="restaurantName" name="restaurantName">
+                                @foreach (var item in user.Restaurants)
+                                {
+                                    <option value="@item.Name">@item.Name</option>
+                                }
+                            </select>
+                            <button type="submit" class="btn btn-success btn-sm">Add Employee</button>
+                        </form>
+                    }
+                </td>
+
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+

@@ -7,5 +7,7 @@
         public const string AdminRole = "Administrator";
 
         public const string Restaurateur = "Restaurateur";
+
+        public const string Employee = "Employee";
     }
 }

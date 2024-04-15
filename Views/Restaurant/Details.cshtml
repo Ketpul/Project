@@ -42,12 +42,20 @@
                             <div class="card" style="width: 25rem; margin-bottom: 20px;">
                                 <p>
                                     <strong>User:</strong> @comment.UserName Rating:
-                                    <span style="color: gold;">
+                                    <span>
+                                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+                                        <style>
+                                            .checked {
+                                                color: orange;
+                                            }
+
+                                        </style>
                                         @for (int i = 0; i < comment.Rating; i++)
                                         {
-                                            <label>★</label>
+                                            <span class="fa fa-star checked"></span>
                                         }
                                     </span>
+                                    
                                 </p>
                                 <p>@comment.info</p>
                             </div>
@@ -77,9 +85,7 @@
             {
                 <p>Грешка: Невалиден линк към Google Maps</p>
             }
-            <p>
-
-            </p>
+            
             
             <div class="card" style="width: 18rem; position: absolute; top: 0; right: -25%;">
                 <div class="card-body">
@@ -87,24 +93,50 @@
                     <p class="card-text">Full Name:  @Model.FullName</p>
                     <p class="card-text">Email: @Model.Email </p>
                     <p class="card-text">Phone Number: @Model.PhoneNumber</p>
+                    
                     <p>
                         @if (User.Identity.Name == Model.UserName || User.IsInRole(AdminRole))
                         {
                             <div style="position: relative;">
-                                <a asp-controller="Restaurant" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-info mb-2 w-48 p-3 fw-bold" style="position: absolute; left: -1rem; top: -14.2rem;">Edit the Restaurant</a>
+                                <a asp-controller="Restaurant" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-info mb-2 w-48 p-3 fw-bold" style="position: absolute; left: -78.5rem; top: -11.5rem;">Edit the Restaurant</a>
 
-                                <a asp-controller="Restaurant" asp-action="DeleteRestaurant" asp-route-id="@Model.Id" class="btn btn-danger mb-2 w-30 p-3 fw-bold" style="position: absolute; left: 10.2rem; top: -14.2rem;;">Delete</a>
+                                <a asp-controller="Restaurant" asp-action="DeleteRestaurant" asp-route-id="@Model.Id" class="btn btn-danger mb-2 w-30 p-3 fw-bold" style="position: absolute; left: -67rem; top: -11.5rem;">Delete</a>
                             </div>
                         }
                     </p>
+
                     
                 </div>
             </div>
-            
+            <form method="post" asp-controller="Reservation" asp-action="Reservation">
+                <div class="card" style="width: 18rem; position: absolute; top: 13rem; right: -25%;">
+                    <div class="card-body">
+                        <p>
+                            <label for="date">Date:</label>
+                            <input type="date" id="date" name="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                        </p>
+                        <p>
+                            <label for="start">Start time:</label>
+                            <input type="time" id="start" name="start" value="00:00" />
+                        </p>
+                        <p>
+                            <label for="end">End time:</label>
+                            <input type="time" id="end" name="end" value="00:00" />
+                        </p>
+                        <input type="hidden" name="restaurantId" value="@Model.Id" />
+                        <button type="submit" class="btn-primary p-2 fw-bold" style="width: 15rem;">Reservation</button>
+                    </div>
+                </div>
+            </form>
 
+            
         </div>
+
     </div>
 </div>
+
+
+
 
 
 

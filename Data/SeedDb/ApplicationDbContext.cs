@@ -14,6 +14,21 @@ namespace Project.Data.SeedDb
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+
+            modelBuilder.Entity<Reservation>()
+                .HasOne(e => e.Restaurant)
+                .WithMany()
+                .HasForeignKey(e => e.RestaurantId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+
+            modelBuilder.Entity<Reservation>()
+                .HasOne(e => e.User)
+                .WithMany()
+                .HasForeignKey(e => e.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
+
             modelBuilder.Entity<FavoriteRestaurants>()
                 .HasKey(ep => new { ep.RestaurantId, ep.UserId });
 
@@ -44,17 +59,32 @@ namespace Project.Data.SeedDb
                 .HasData(new Category()
                 {
                     Id = 1,
-                    Name = "Fast Food"
+                    Name = "Бързо хранене"
                 },
                 new Category()
                 {
                     Id = 2,
-                    Name = "Elegans"
+                    Name = "Изискан"
+                },
+                new Category()
+                {
+                    Id = 3,
+                    Name = "Рибен"
+                },
+                new Category()
+                {
+                    Id = 4,
+                    Name = "Кафе"
+                },
+                new Category()
+                {
+                    Id = 5,
+                    Name = "Бар"
                 },
                 new Category
                 {
-                    Id = 3,
-                    Name = "Other"
+                    Id = 6,
+                    Name = "Други"
                 });
 
 
@@ -62,6 +92,9 @@ namespace Project.Data.SeedDb
         }
 
         public DbSet<Category> Categories { get; set; }
+
+        public DbSet<Reservation> Reservations { get; set; }
+
         public DbSet<FavoriteRestaurants> FavoritesRestaurants { get; set; }
 
         public DbSet<Comment> Comments { get; set; }

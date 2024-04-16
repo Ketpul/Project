@@ -10,7 +10,7 @@ using static Project.Constants.RoleConstants;
 
 namespace Project.Controllers
 {
-    public class ReservationController : Controller
+    public class ReservationController : BaseController
     {
         private readonly ApplicationDbContext data;
         private readonly UserManager<ApplicationUser> users;

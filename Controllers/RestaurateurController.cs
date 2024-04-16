@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Project.Data.Models;
 using Project.Data.SeedDb;
 using Project.Models.OwnerViews;
@@ -15,6 +14,7 @@ namespace Project.Controllers
             data = _data;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Add()
         {
             var model = new RestaurateurRequestFromViewModel();

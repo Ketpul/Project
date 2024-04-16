@@ -1,6 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using static Project.Constants.DateConstants;
 
 namespace Project.Models.OwnerViews
 {
@@ -10,14 +9,19 @@ namespace Project.Models.OwnerViews
         public string RestaurateurId { get; set; } = string.Empty;
 
         [Required]
+        [StringLength(UserFirstNameMaxLength, MinimumLength = UserFirstNameMinLength)]
         public string FirstName { get; set; } = string.Empty;
 
         [Required]
+        [StringLength(UserLastNameMaxLength, MinimumLength = UserLastNameMinLength)]
         public string LastName { get; set; } = string.Empty;
+
         [Required]
+        [StringLength(PhoneNumberMaxLength, MinimumLength = PhoneNumberMinLength)]
         public string PhoneNumber { get; set; } = string.Empty;
 
         [Required]
+        [StringLength(UserInformationMaxLength, MinimumLength = UserInformationMinLength)]
         public string Information { get; set; } = string.Empty;
 
         [Required]

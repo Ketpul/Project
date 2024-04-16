@@ -23,6 +23,11 @@ namespace Project.Controllers
         [HttpGet]
         public async Task<IActionResult> Add()
         {
+            if(!User.IsInRole(Restaurateur))
+            {
+                return RedirectToAction("Add", "Restaurateur");
+            }
+
             var model = new RestaurantFormViewModel();
             model.Categories = await GetCategories();
 
@@ -32,6 +37,10 @@ namespace Project.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(RestaurantFormViewModel model)
         {
+            if (!User.IsInRole(Restaurateur))
+            {
+                return RedirectToAction("Add", "Restaurateur");
+            }
 
             if (!ModelState.IsValid)
             {
@@ -216,7 +225,16 @@ namespace Project.Controllers
         [HttpGet]
         public async Task<IActionResult> DeleteRestaurant(int id)
         {
+
             var restaurant = await data.Restaurants.FindAsync(id);
+
+            if (!User.IsInRole(AdminRole))
+            {
+                if (restaurant.RestaurateurId != GetUserId())
+                {
+                    return Unauthorized();
+                }
+            }
 
             if (restaurant == null)
             {

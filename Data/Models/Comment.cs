@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using static Project.Constants.DateConstants;
 
 namespace Project.Data.Models
 {
@@ -8,6 +9,7 @@ namespace Project.Data.Models
         public int Id { get; set; }
 
         [Required]
+        [MaxLength(CommentInfoMaxLength)]
         public string info { get; set; } = string.Empty;
 
         [Required]

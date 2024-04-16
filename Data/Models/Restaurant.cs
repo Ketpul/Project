@@ -2,6 +2,7 @@
 using Project.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using static Project.Constants.DateConstants;
 
 namespace Project.Data.Models
 {
@@ -11,7 +12,7 @@ namespace Project.Data.Models
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(50)]
+        [MaxLength(RestaurantNameMaxLength)]
         [Display(Name = "Name")]
         public string Name { get; set; } = string.Empty;
 
@@ -25,12 +26,11 @@ namespace Project.Data.Models
         public string ImageUrl3 { get; set; } = string.Empty;
 
         [Required]
-
+        [MaxLength(DescriptionMaxLength)]
         public string Description { get; set; } = string.Empty;
 
         [Required]
-        [MaxLength(55)]
-
+        [MaxLength(AddressMaxLength)]
         public string Address { get; set; } = string.Empty;
 
         [Required]
@@ -39,7 +39,7 @@ namespace Project.Data.Models
         [Required]
         public string GoogleMaps { get; set; } = string.Empty;
 
-        public double AvgRating { get; set; }
+        public int AvgRating { get; set; }
 
         [Required]
         public RegionalCity RegionalCity { get; set; } 

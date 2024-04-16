@@ -22,6 +22,6 @@ namespace Project.Models.RestaurantViews
 
         public string City { get; set; } = string.Empty;
 
-        public double Rating { get; set; }  
+        public int Rating { get; set; }  
     }
 }

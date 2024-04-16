@@ -4,6 +4,7 @@ using Project.Data.Models;
 using Project.Data.SeedDb;
 
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

@@ -2,13 +2,14 @@
 using Project.Enums;
 using Project.Models.OtherViews;
 using System.ComponentModel.DataAnnotations;
+using static Project.Constants.DateConstants;
 
 namespace Project.Models.RestaurantViews
 {
     public class RestaurantFormViewModel
     {
         [Required]
-        [StringLength(50, MinimumLength = 10)]
+        [StringLength(RestaurantNameMaxLength, MinimumLength = RestaurantNameMinLength)]
         public string Name { get; set; } = string.Empty;
 
         [Required]
@@ -19,14 +20,14 @@ namespace Project.Models.RestaurantViews
         public string ImageUrl3 { get; set; } = string.Empty;
 
         [Required]
-        [StringLength(100, MinimumLength = 10)]
-
+        [StringLength(AddressMaxLength, MinimumLength = AddressMinLength)]
         public string Address { get; set; } = string.Empty;
 
         [Required]
-        [StringLength(2000, MinimumLength = 10)]
-
+        [StringLength(DescriptionMaxLength, MinimumLength = DescriptionMinLength)]
         public string Description { get; set; } = string.Empty;
+
+        [Required]
         public string GoogleMaps { get; set; } = string.Empty;
 
         public string Restaurateur { get; set; } = string.Empty;

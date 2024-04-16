@@ -39,7 +39,7 @@ namespace Project.Controllers
                 commentsAvg = comments.Average(c => c.Rating);
             }
 
-            restaurant.AvgRating = commentsAvg;
+            restaurant.AvgRating = (int)commentsAvg;
 
             await data.SaveChangesAsync();
 

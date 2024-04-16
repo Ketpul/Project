@@ -27,31 +27,32 @@
                             @if (User.Identity.IsAuthenticated)
                             {
                                 <li class="nav-item">
-                                    <a class="btn" style="background-color: orangered; margin: 0.4em;" asp-area="" asp-controller="Restaurant" asp-action="All">All Restaurants</a>
+                                <a class="btn" style="background-color: gray; margin: 0.4em;" asp-area="" asp-controller="Restaurant" asp-action="All">Всички ресторанти</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="btn" style="background-color: orangered; margin: 0.4em;" asp-area="" asp-controller="Restaurant" asp-action="FavoriteRestaurants">Favorite Restaurants</a>
+                                <a class="btn" style="background-color: gray; margin: 0.4em;" asp-area="" asp-controller="Restaurant" asp-action="FavoriteRestaurants">Любими</a>
                                 </li>
                                 @if (!User.IsInRole(Restaurateur))
                                 {
                                     <li class="nav-item">
-                                        <a class="btn" style="background-color: orangered; margin: 0.4em;" asp-area="" asp-controller="Restaurateur" asp-action="Add">Restaurateur Request</a>
+                                    <a class="btn" style="background-color: gray; margin: 0.4em;" asp-area="" asp-controller="Restaurateur" asp-action="Add">Стани ресторантьор</a>
                                     </li>
                                 }
                                 
                                 @if (base.User.IsInRole(Project.Constants.RoleConstants.Restaurateur))
                                 {
                                 <li class="nav-item">
-                                    <a class="btn" style="background-color: orangered; margin: 0.4em;" asp-area="" asp-controller="Restaurant" asp-action="Add">Add Restaurant</a>
+                                    <a class="btn" style="background-color: gray; margin: 0.4em;" asp-area="" asp-controller="Restaurant" asp-action="Add">Добави ресторант</a>
                                 </li> 
                                 <li class="nav-item">
-                                    <a class="btn" style="background-color: orangered; margin: 0.4em;" asp-area="Admin" asp-controller="Restauranteur" asp-action="AllUsers">All Users</a>
+                                    <a class="btn" style="background-color: gray; margin: 0.4em;" asp-area="" asp-controller="Reservation" asp-action="AllUsers">Всички потребители</a>
                                 </li>
+                                
                                 }
                                 @if (User.IsInRole(Employee))
                                 {
                                      <li class="nav-item">
-                                    <a class="btn" style="background-color: orangered; margin: 0.4em;" asp-area="" asp-controller="Reservation" asp-action="AllReservation">All Reservations</a>
+                                    <a class="btn" style="background-color: gray; margin: 0.4em;" asp-area="" asp-controller="Reservation" asp-action="AllReservation">Всички резервации</a>
                                      </li>
                                 }
 
@@ -60,7 +61,7 @@
                             <li class="nav-item">
                                 @if (User.IsInRole(AdminRole))
                                 {
-                                    <a class="btn" style="background-color: orangered; margin: 0.4em;" asp-area="Admin" asp-controller="Home" asp-action="DashBoard">DashBoard</a>
+                                <a class="btn" style="background-color: gray; margin: 0.4em;" asp-area="Admin" asp-controller="Home" asp-action="DashBoard">DashBoard</a>
                                 }
                             </li>
                         </li>

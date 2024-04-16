@@ -1,4 +1,5 @@
-﻿@model IEnumerable<EmployeeInfoViewModel>
+﻿@using Project.Models.ReservationView
+@model IEnumerable<EmployeeInfoViewModel>
 
 @{
     ViewBag.Title = "All Users";
@@ -23,9 +24,9 @@
         {
             <tr>
                 <td>
-                    @if (user.IsEmployee )
+                    @if (user.IsEmployee)
                     {
-                        <a asp-area="Admin" asp-controller="Restauranteur" asp-action="RemoveFromEmployee" asp-route-username="@user.Email"
+                        <a asp-area="" asp-controller="Reservation" asp-action="RemoveFromEmployee" asp-route-username="@user.Email"
                            class="btn btn-danger btn-sm">Remove From Employee</a>
                     }
 
@@ -46,9 +47,9 @@
                 </td>
                 
                 <td>
-                    @if (!user.IsRestauntior && !user.IsEmployee)
+                    @if (!user.IsEmployee)
                     {
-                        <form asp-area="Admin" asp-controller="Restauranteur" asp-action="AddEmployee" method="post">
+                        <form asp-area="" asp-controller="Reservation" asp-action="AddEmployee" method="post">
                             <input type="hidden" name="username" value="@user.UserName" />
                             <select id="restaurantName" name="restaurantName">
                                 @foreach (var item in user.Restaurants)
@@ -66,6 +67,3 @@
         }
     </tbody>
 </table>
-
-
-

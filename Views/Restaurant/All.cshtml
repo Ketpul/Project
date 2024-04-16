@@ -1,7 +1,7 @@
 ﻿@using Project.Enums
 @model IEnumerable<RestaurantInfoViewModel>
 @{
-    ViewBag.Title = "All Restaurants";
+    ViewBag.Title = "Всички ресторанти";
 }
 
 
@@ -10,13 +10,13 @@
 
 <form method="get" class="row align-items-end">
     <div class="col-md-2 mb-3">
-        <label for="searchString" class="visually-hidden">Search by name</label>
-        <input type="text" name="searchString" id="searchString" class="form-control" placeholder="Search by name">
+        <label for="searchString" class="visually-hidden">Търси по име</label>
+        <input type="text" name="searchString" id="searchString" class="form-control" placeholder="Търси по име">
     </div>
     <div class="col-md-3 mb-3">
         <label for="category" class="visually-hidden">Category</label>
         <select name="category" id="category" class="form-select" aria-label="Category">
-            <option value="">All Categories</option>
+            <option value="">Всички видове</option>
             <option value="Fast Food">Fast Food</option>
             <option value="Elegans">Elegans</option>
             <option value="Other">Other</option>
@@ -25,7 +25,7 @@
     <div class="col-md-3 mb-3">
         <label for="city" class="visually-hidden">City</label>
         <select name="city" id="city" class="form-select" aria-label="City">
-            <option value="">All Cities</option>
+            <option value="">Всички Градове</option>
             @foreach (var city in Enum.GetValues(typeof(RegionalCity)))
             {
                 <option value="@city">@city</option>
@@ -35,7 +35,7 @@
     <div class="col-md-2 mb-3">
         <label for="rating" class="visually-hidden">Rating</label>
         <select name="rating" id="rating" class="form-select" aria-label="Rating">
-            <option value="">Rating</option>
+            <option value="">Рейтинг</option>
             @for (int i = 1; i <= 5; i++)
             {
                 <option value="@i">@i</option>
@@ -43,7 +43,7 @@
         </select>
     </div>
     <div class="col-md-2 mb-3">
-        <button type="submit" class="btn btn-primary">Apply Filter</button>
+        <button type="submit" class="btn btn-primary">Филтрирай</button>
     </div>
 </form>
 
@@ -79,7 +79,7 @@
             {
 
                 <form class="input-group-sm " asp-controller="Restaurant" asp-action="AddFavoriteRestaurants" asp-route-id="@a.Id">
-                    <input type="submit" value="Add Favorite Restaurants" class="btn btn-outline-warning mb-3 w-100 p-3 fw-bold" />
+                    <input type="submit" value="Добави в любими" class="btn btn-outline-warning mb-3 w-100 p-3 fw-bold" />
                 </form>
 
 

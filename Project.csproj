@@ -22,6 +22,8 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Restauranteur\Data\" />
+    <Folder Include="Areas\Restauranteur\Models\" />
   </ItemGroup>
 
 </Project>

@@ -13,18 +13,18 @@
     {
         <div class="card col-4" style="width: 20rem; ">
             <div class="card-body">
-                <p class="mb-0"><span class="fw-bold">FirstName: </span>@a.FirstName</p>
-                <p class="mb-0"><span class="fw-bold">LastName: </span>@a.LastName</p>
-                <p class="mb-0"><span class="fw-bold">PhoneNumber: </span>@a.PhoneNumber</p>
-                <p class="mb-0"><span class="fw-bold">Date: </span>@a.Date</p>
-                <p class="mb-0"><span class="fw-bold">Start: </span>@a.Start</p>
-                <p class="mb-0"><span class="fw-bold">End: </span>@a.End</p>
+                <p class="mb-0"><span class="fw-bold">Име: </span>@a.FirstName</p>
+                <p class="mb-0"><span class="fw-bold">Фамилия: </span>@a.LastName</p>
+                <p class="mb-0"><span class="fw-bold">Телефон: </span>@a.PhoneNumber</p>
+                <p class="mb-0"><span class="fw-bold">Дата: </span>@a.Date</p>
+                <p class="mb-0"><span class="fw-bold">Час на пристигане: </span>@a.Start</p>
+                <p class="mb-0"><span class="fw-bold">Час на напускане: </span>@a.End</p>
 
             </div>
 
 
             <form class="input-group-sm" asp-area="" asp-controller="Reservation" asp-action="Yes" asp-route-phoneNumber="@a.PhoneNumber">
-                <input type="submit" value="Confirm" class="btn btn-success mb-3 w-100 p-3 fw-bold" />
+                <input type="submit" value="Готово" class="btn btn-success mb-3 w-100 p-3 fw-bold" />
             </form>
         </div>
     }

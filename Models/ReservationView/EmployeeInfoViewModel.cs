@@ -1,6 +1,6 @@
 ﻿using Project.Data.Models;
 
-namespace Project.Areas.Admin.Models
+namespace Project.Models.ReservationView
 {
     public class EmployeeInfoViewModel
     {

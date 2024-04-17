@@ -24,7 +24,7 @@
         {
             <tr>
                 <td>
-                    @if (user.IsEmployee)
+                    @if (user.IsEmployee )
                     {
                         <a asp-area="" asp-controller="Reservation" asp-action="RemoveFromEmployee" asp-route-username="@user.Email"
                            class="btn btn-danger btn-sm">Remove From Employee</a>

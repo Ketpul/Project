@@ -16,5 +16,6 @@ namespace Project.Models.ReservationView
 
         public bool IsEmployee { get; set; }
         public bool IsRestauntior { get; set; }
+        
     }
 }

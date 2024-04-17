@@ -6,8 +6,11 @@ namespace Project.Data.SeedDb
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options)
+        private bool _seedDb;
+
+
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
+            options, bool seed = true) : base(options)
         {
             if (Database.IsRelational())
             {
@@ -17,6 +20,8 @@ namespace Project.Data.SeedDb
             {
                 Database.EnsureCreated();
             }
+
+            _seedDb = seed;
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

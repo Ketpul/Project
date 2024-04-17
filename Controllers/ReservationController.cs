@@ -26,6 +26,14 @@ namespace Project.Controllers
         [HttpPost]
         public async Task<IActionResult> AddEmployee(string username, string restaurantName)
         {
+            if (restaurantName == null)
+            {
+                return BadRequest();
+            }
+            if (username == null)
+            {
+                return BadRequest();
+            }
             var user = await users.FindByNameAsync(username);
             var restaurant = await data.Restaurants.FirstAsync(r => r.Name == restaurantName);
 
@@ -47,13 +55,20 @@ namespace Project.Controllers
         public async Task<IActionResult> RemoveFromEmployee(string username)
         {
             var user = await users.FindByEmailAsync(username);
+            var restaurant = await data.Restaurants.FindAsync(user.EMPRSID);
+
+            if (restaurant.RestaurateurId != GetUserId())
+            {
+                TempData[UserMessageError] = "Не може да го премахнеш";
+                return RedirectToAction("AllUsers", "Reservation");
+            }
             await users.RemoveFromRoleAsync(user, Employee);
 
             user.EMPRSID = -1;
 
             data.SaveChanges();
 
-            TempData[UserMessageError] = "Remove Employee";
+            TempData[UserMessageSuccess] = "Премахна работника";
 
             return RedirectToAction("AllUsers", "Reservation");
         }

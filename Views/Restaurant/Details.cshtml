@@ -1,4 +1,4 @@
-﻿@using System.Text
+﻿﻿@using System.Text
 @model RestaurantDetailsViewModel
 
 
@@ -56,11 +56,11 @@
                                             <span class="fa fa-star checked"></span>
                                         }
                                     </span>
-                                    
+
                                 </p>
                                 <p>@comment.info</p>
                             </div>
-                            
+
 
                         }
                         <textarea name="commentText" class="form-control" aria-required="true" rows="4" style="width: 25rem;"></textarea>
@@ -68,7 +68,7 @@
                         <label for="rating">Рейтинг:</label>
                         <input type="number" name="rating" id="rating" min="1" max="5" class="form-control" style="width: 5rem;" required>
                         <button type="submit" class="btn-primary p-2 fw-bold" style="width: 25rem;">Добави коментар</button>
-                        
+
                     </form>
                 </div>
             </div>
@@ -78,7 +78,7 @@
             <p>
                 @{
                     var description = Model.Description;
-                    var maxCharsPerLine = 100; 
+                    var maxCharsPerLine = 100;
                     var lines = new List<string>();
 
                     var words = description.Split(' ');
@@ -111,7 +111,7 @@
                     <br style="line-height: 0;">
                 }
             </p>
-            <p style ="margin-bottom: 10px;"><strong>Вид на ресторанта:</strong> @Model.Category</p>
+            <p style="margin-bottom: 10px;"><strong>Вид на ресторанта:</strong> @Model.Category</p>
             <p style="margin-bottom: 40px;"><strong>Град:</strong> @Model.City</p>
             @if (!string.IsNullOrEmpty(Model.GoogleMaps) && Uri.IsWellFormedUriString(Model.GoogleMaps, UriKind.Absolute))
             {
@@ -121,15 +121,15 @@
             {
                 <p>Грешка: Невалиден линк към Google Maps</p>
             }
-            
-            
+
+
             <div class="card" style="width: 18rem; position: absolute; top: 0; right: -25%;">
                 <div class="card-body">
                     <h5 class="card-title"><b>Ресторантьор:</b></h5>
                     <p class="card-text">Име:  @Model.FullName</p>
                     <p class="card-text">Email: @Model.Email </p>
                     <p class="card-text">Телефон: @Model.PhoneNumber</p>
-                    
+
                     <p>
                         @if (User.Identity.Name == Model.UserName || User.IsInRole(AdminRole))
                         {
@@ -141,7 +141,7 @@
                         }
                     </p>
 
-                    
+
                 </div>
             </div>
             <form method="post" asp-controller="Reservation" asp-action="Reservation">
@@ -179,15 +179,8 @@
             </form>
 
 
-            
+
         </div>
 
     </div>
 </div>
-
-
-
-
-
-
-

@@ -24,7 +24,7 @@ namespace Project.Controllers
         [HttpGet]
         public async Task<IActionResult> Add()
         {
-            if(!User.IsInRole(Restaurateur))
+            if (!User.IsInRole(Restaurateur))
             {
                 return RedirectToAction("Add", "Restaurateur");
             }

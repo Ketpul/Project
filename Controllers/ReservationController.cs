@@ -135,7 +135,7 @@ namespace Project.Controllers
 
             TempData[UserMessageSuccess] = "Направихте резервация успоешно";
 
-            return RedirectToAction(nameof(AllReservation));
+            return RedirectToAction("Details", "Restaurant", new { id = restaurantId });
         }
 
         [HttpGet]

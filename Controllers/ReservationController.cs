@@ -7,6 +7,8 @@ using Project.Data.SeedDb;
 using Project.Models.ReservationView;
 using System.Security.Claims;
 using static Project.Constants.RoleConstants;
+using static Project.Constants.MessageConstants;
+
 
 namespace Project.Controllers
 {
@@ -50,6 +52,9 @@ namespace Project.Controllers
             user.EMPRSID = -1;
 
             data.SaveChanges();
+
+            TempData[UserMessageError] = "Remove Employee";
+
             return RedirectToAction("AllUsers", "Reservation");
         }
 
@@ -72,7 +77,7 @@ namespace Project.Controllers
                 await data.SaveChangesAsync();
             }
 
-
+            TempData[UserMessageSuccess] = "Confirm!";
 
             return RedirectToAction(nameof(AllReservation));
         }
@@ -127,6 +132,8 @@ namespace Project.Controllers
 
             await data.Reservations.AddAsync(reservation);
             await data.SaveChangesAsync();
+
+            TempData[UserMessageSuccess] = "Направихте резервация успоешно";
 
             return RedirectToAction(nameof(AllReservation));
         }

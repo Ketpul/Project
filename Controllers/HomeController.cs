@@ -18,6 +18,7 @@ namespace Project.Controllers
             data = _data;
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var restaurants = await data.Restaurants.OrderByDescending(r => r.AvgRating).Take(3).ToListAsync();

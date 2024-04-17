@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Project.Data.Models;
 using Project.Data.SeedDb;
 using System.Security.Claims;
-using System.Xml.Linq;
 
 namespace Project.Controllers
 {
@@ -42,6 +41,7 @@ namespace Project.Controllers
             restaurant.AvgRating = (int)commentsAvg;
 
             await data.SaveChangesAsync();
+
 
             return RedirectToAction("Details", "Restaurant", new { id = restaurantId });
         }

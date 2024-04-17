@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Project.Data.Models;
@@ -72,6 +73,8 @@ namespace Project.Controllers
 
             return RedirectToAction();
         }
+
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> All(string searchString, string category, string city, int rating)
         {
@@ -118,6 +121,7 @@ namespace Project.Controllers
             return View(restaurant);
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
@@ -219,6 +223,8 @@ namespace Project.Controllers
 
             await data.SaveChangesAsync();
 
+            TempData[UserMessageSuccess] = "Редактиранте беше успоешно";
+
             return RedirectToAction(nameof(All));
         }
 
@@ -279,6 +285,8 @@ namespace Project.Controllers
                 })
                 .ToListAsync();
 
+
+
             return View(restaurants);
         }
 
@@ -309,6 +317,8 @@ namespace Project.Controllers
             await data.FavoritesRestaurants.AddAsync(entity);
             await data.SaveChangesAsync();
 
+            TempData[UserMessageSuccess] = "Добавихте в любими успоешно";
+
             return RedirectToAction(nameof(FavoriteRestaurants));
         }
 
@@ -325,6 +335,8 @@ namespace Project.Controllers
 
             data.FavoritesRestaurants.Remove(favorite);
             data.SaveChanges();
+
+            TempData[UserMessageError] = "Премахнате от любими";
 
             return RedirectToAction(nameof(FavoriteRestaurants));
         }
@@ -350,4 +362,6 @@ namespace Project.Controllers
             return User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? string.Empty; 
         }
     }
+
+
 }
